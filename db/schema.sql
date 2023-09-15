@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS angularApp_db;
+CREATE DATABASE angularApp_db;
