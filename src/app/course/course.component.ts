@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent {
+  inputText: string = '';
+
+  sendData() {
+    console.log(this.inputText)
+  }
 
 }
