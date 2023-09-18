@@ -2,3 +2,13 @@
     <input [(ngModel)]="inputText" placeholder="Enter Text" />
     <button (click)="sendData()">Submit</button>
 </div>
+
+<div *ngIf="!isObjectEmpty(instantForecast)">
+    <h2>API Response:</h2>
+    <p>Temperature: {{roundToWholeNumber(instantForecast.main.temp) }}°</p>
+    <p>Wind: {{roundToWholeNumber(instantForecast.wind.speed) }} MPH</p>
+    <p>Humidity: {{roundToWholeNumber(instantForecast.main.humidity) }}%</p>
+    
+
+    <pre>{{instantForecast | json}}</pre>
+  </div>
