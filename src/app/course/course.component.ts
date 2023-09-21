@@ -18,7 +18,7 @@ export class CourseComponent {
   WeatherData!: WeatherData
   dayArray: string[] = []
   tempArray!: [number];
-  myArray: string[] = []
+  cityArray: string[] = []
   
 
   constructor(private http: HttpClient) {} // Inject HttpClient
@@ -65,7 +65,14 @@ export class CourseComponent {
         console.error('An error occurred:', error)
       }
     )
-    this.myArray.push(this.inputText)
-    localStorage.setItem('myArray', JSON.stringify(this.myArray))  
+    this.cityArray.push(this.inputText)
+    localStorage.setItem('cityArray', JSON.stringify(this.cityArray))
+    const storedArrayString = localStorage.getItem('cityArray')
+    if (storedArrayString !== null) {
+      const storedArray = JSON.parse(storedArrayString)
+      console.log(storedArray)
+    } else {
+      console.log('cityArray not found in local storage')
+    } 
   }
 }
