@@ -8,6 +8,6 @@
     <p>Temperature: {{roundToWholeNumber(instantForecast.main.temp) }}°</p>
     <p>Wind: {{roundToWholeNumber(instantForecast.wind.speed) }} MPH</p>
     <p>Humidity: {{roundToWholeNumber(instantForecast.main.humidity) }}%</p>
-    <!-- <pre>{{instantForecast | json}}</pre> -->
-    <!-- <pre>{{WeatherData | json}}</pre> -->
+    <pre>{{instantForecast | json}}</pre>
+    <pre *ngIf="WeatherData">{{WeatherData.list[0].dt_txt.slice(0, 10) | json}}</pre>
   </div>
