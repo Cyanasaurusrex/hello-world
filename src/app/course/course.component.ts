@@ -18,7 +18,7 @@ export class CourseComponent {
   WeatherData!: WeatherData
   dayArray: string[] = []
   tempArray!: [number];
-  myArray = [1, 2, 3, 4, 5]
+  myArray: string[] = []
   
 
   constructor(private http: HttpClient) {} // Inject HttpClient
@@ -65,6 +65,7 @@ export class CourseComponent {
         console.error('An error occurred:', error)
       }
     )
+    this.myArray.push(this.inputText)
     localStorage.setItem('myArray', JSON.stringify(this.myArray))  
   }
 }
