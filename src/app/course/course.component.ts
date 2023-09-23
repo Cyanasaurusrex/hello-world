@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { instantForecast } from './instantForecast.interface';
 import { WeatherData } from './forecast.interface';
@@ -9,7 +9,7 @@ import { switchMap } from 'rxjs';
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
-export class CourseComponent {
+export class CourseComponent implements OnInit{
   inputText: string = '';
   apiUrl: string = 'https://api.openweathermap.org/data/2.5/weather?q={{inputPlaceholder}}&appid={{apiKey}}&units=imperial'
   forecastUrl: string = 'https://api.openweathermap.org/data/2.5/forecast?q={{inputPlaceholder}}&appid={{apiKey}}&units=imperial'
@@ -19,6 +19,13 @@ export class CourseComponent {
   dayArray: string[] = []
   tempArray!: [number];
   cityArray: string[] = []
+
+  ngOnInit() {
+    const storedArray = localStorage.getItem('cityArray');
+    if (storedArray) {
+      this.cityArray = JSON.parse(storedArray)
+    }
+  }
   
 
   constructor(private http: HttpClient) {} // Inject HttpClient
@@ -67,12 +74,12 @@ export class CourseComponent {
     )
     this.cityArray.push(this.inputText)
     localStorage.setItem('cityArray', JSON.stringify(this.cityArray))
-    const storedArrayString = localStorage.getItem('cityArray')
-    if (storedArrayString !== null) {
-      const storedArray = JSON.parse(storedArrayString)
-      console.log(storedArray)
-    } else {
-      console.log('cityArray not found in local storage')
-    } 
+    // const storedArrayString = localStorage.getItem('cityArray')
+    // if (storedArrayString !== null) {
+    //   this.storedArray = JSON.parse(storedArrayString)
+    //   console.log(this.storedArray)
+    // } else {
+    //   console.log('cityArray not found in local storage')
+    // } 
   }
 }
