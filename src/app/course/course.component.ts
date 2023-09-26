@@ -41,14 +41,14 @@ export class CourseComponent implements OnInit{
     return Math.round(value);
   }
 
-  sendData() {
-    let cityUrl = this.apiUrl.replace('{{inputPlaceholder}}', this.inputText)
+  sendData(cityName: string) {
+    let cityUrl = this.apiUrl.replace('{{inputPlaceholder}}', cityName)
     let dynamicUrl = cityUrl.replace('{{apiKey}}', this.apiKey)
     this.http.get<instantForecast>(dynamicUrl).pipe(
       switchMap((data) => {
         this.instantForecast = data
         console.log(this.instantForecast)
-        cityUrl = this.forecastUrl.replace('{{inputPlaceholder}}', this.inputText)
+        cityUrl = this.forecastUrl.replace('{{inputPlaceholder}}', cityName)
         dynamicUrl = cityUrl.replace('{{apiKey}}', this.apiKey)
         return this.http.get<WeatherData>(dynamicUrl)
       })
