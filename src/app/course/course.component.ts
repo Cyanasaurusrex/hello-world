@@ -42,6 +42,10 @@ export class CourseComponent implements OnInit{
   }
 
   sendData(cityName: string) {
+    if (cityName == "" || cityName == null) {
+      console.log("fail")
+      return
+    }
     let cityUrl = this.apiUrl.replace('{{inputPlaceholder}}', cityName)
     let dynamicUrl = cityUrl.replace('{{apiKey}}', this.apiKey)
     this.http.get<instantForecast>(dynamicUrl).pipe(
@@ -72,14 +76,9 @@ export class CourseComponent implements OnInit{
         console.error('An error occurred:', error)
       }
     )
-    this.cityArray.push(this.inputText)
-    localStorage.setItem('cityArray', JSON.stringify(this.cityArray))
-    // const storedArrayString = localStorage.getItem('cityArray')
-    // if (storedArrayString !== null) {
-    //   this.storedArray = JSON.parse(storedArrayString)
-    //   console.log(this.storedArray)
-    // } else {
-    //   console.log('cityArray not found in local storage')
-    // } 
+    if (!this.cityArray.includes(this.inputText) && this.inputText !== "") {
+      this.cityArray.push(this.inputText)
+      localStorage.setItem('cityArray', JSON.stringify(this.cityArray))      
+    }   
   }
 }
