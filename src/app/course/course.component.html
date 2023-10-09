@@ -1,19 +1,20 @@
 <div>
     <input [(ngModel)]="inputText" placeholder="Enter Text" (keydown.enter)="sendData(inputText)"/>
     <button (click)="sendData(inputText)">Submit</button>
+    <p>Cities you have searched:</p>
+    <div *ngFor="let city of cityArray">  
+      <button (click)="sendData(city)">{{city}}</button>
+    </div>
 </div>
 
 <div *ngIf="!isObjectEmpty(instantForecast)">
     <h2>API Response:</h2>
+    <h1>{{instantForecast.name}}</h1>
     <p>Temperature: {{roundToWholeNumber(instantForecast.main.temp) }}°</p>
     <p>Wind: {{roundToWholeNumber(instantForecast.wind.speed) }} MPH</p>
     <p>Humidity: {{roundToWholeNumber(instantForecast.main.humidity) }}%</p>
     <!-- <pre>{{instantForecast | json}}</pre> -->
-    <pre *ngIf="WeatherData">{{WeatherData.list[0].dt_txt.slice(0, 10) | json}}</pre>
-    <p>{{dayArray | json}}</p>
+    <!-- <pre *ngIf="WeatherData">{{WeatherData.list| json}}</pre> -->
+    <!-- <p>{{dayArray | json}}</p> -->
 </div>
 
-<p>Cities you have searched:</p>
-<div *ngFor="let city of cityArray">  
-  <button (click)="sendData(city)">{{city}}</button>
-</div>

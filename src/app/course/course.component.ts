@@ -16,7 +16,7 @@ export class CourseComponent implements OnInit{
   apiKey: string = ''
   instantForecast!: instantForecast;
   WeatherData!: WeatherData
-  dayArray: string[] = []
+  dayObj: { [key: string]: number} = {}
   tempArray!: [number];
   cityArray: string[] = []
 
@@ -59,17 +59,20 @@ export class CourseComponent implements OnInit{
     ).subscribe(
       (data) => {
         this.WeatherData = data;
-        
-        // finds the next 5 days and stores then in dayArray
         for (let i=0; i < 40; i++) {
-          if (!this.dayArray.includes(this.WeatherData.list[i].dt_txt.slice(0, 10))){
-            this.dayArray.push(this.WeatherData.list[i].dt_txt.slice(0, 10))
+          if (!this.dayObj.hasOwnProperty(this.WeatherData.list[i].dt_txt.slice(0, 10))) {
+            this.dayObj[this.WeatherData.list[i].dt_txt.slice(0, 10)] = 1
+            continue
+          }
+          this.dayObj[this.WeatherData.list[i].dt_txt.slice(0, 10)] += 1
+        }
+        for (const key in this.dayObj) {
+          if(this.dayObj.hasOwnProperty(key) && this.dayObj[key] < 8) {
+            delete this.dayObj[key]
           }
         }
+        console.log(this.dayObj)
 
-        for (let i=0; i < this.dayArray.length; i++) {
-          
-        }
 
       },
       (error) => {
@@ -80,5 +83,6 @@ export class CourseComponent implements OnInit{
       this.cityArray.push(this.inputText)
       localStorage.setItem('cityArray', JSON.stringify(this.cityArray))      
     }   
+    this.inputText = ""
   }
 }
