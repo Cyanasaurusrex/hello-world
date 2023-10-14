@@ -5,6 +5,24 @@ const app = express();
 const dotenv = require('dotenv')
 const PORT = process.env.PORT || 3000;
 dotenv.config()
+const mysql = require('mysql')
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: process.env.DB_USER,
+  password: process.env.DB_PW,
+  database: process.env.DB_NAME,
+})
+
+db.connect((err) => {
+  if (err) {
+    console.error('Database connection error: ' + err.message);
+  } else {
+    console.log('Connected to the database');
+  }
+});
+
+
+
 
 app.get('/api', (req, res) => {
   const apiKey = process.env.API_KEY
@@ -36,6 +54,17 @@ app.get('/api', (req, res) => {
   });
 
   request.end()
+});
+
+app.get('/api/data', (req, res) => {
+  db.query('SELECT * FROM item', (err, results) => {
+    if (err) {
+      console.error('Database query error: ' + err.message);
+      res.status(500).send('Database error');
+    } else {
+      res.json(results);
+    }
+  });
 });
 
 app.listen(PORT, () => {
