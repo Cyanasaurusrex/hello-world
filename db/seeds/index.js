@@ -1,13 +1,9 @@
 const sq = require('../../config/connection');
-const seedItem = require('./itemData');
-
-const item = require('../../models/item')
-
+const seedCard = require('./cardData')
 
 async function seedAll(){
     await sq.sync({force: true});
-
-    await seedItem();
+    await seedCard()
 
     process.exit(0);
 }
