@@ -7,12 +7,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoursesComponent } from './courses.component';
 import { CourseComponent } from './course/course.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { CardDisplayComponent } from './card-display/card-display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CoursesComponent,
     CourseComponent,
+    NavbarComponent,
+    SearchBarComponent,
+    CardDisplayComponent,
   ],
   imports: [
     BrowserModule,
