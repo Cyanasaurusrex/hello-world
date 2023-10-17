@@ -57,7 +57,7 @@ app.get('/api', (req, res) => {
 });
 
 app.get('/api/data', (req, res) => {
-  db.query('SELECT * FROM card', (err, results) => {
+  db.query('SELECT * FROM card ORDER BY oracle_id  LIMIT 10000', (err, results) => {
     if (err) {
       console.error('Database query error: ' + err.message);
       res.status(500).send('Database error');

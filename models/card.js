@@ -4,15 +4,26 @@ class Card extends Model { }
 
 Card.init(
     {
-        id: {
-            type: DataTypes.INTEGER,
+        card_id: {
+            type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true,
-            autoIncrement: true,
         },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        cmc: {
+            type: DataTypes.DECIMAL,
+            allowNull: true
+        },
+        set: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        type: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     },
     {

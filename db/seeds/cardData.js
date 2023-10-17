@@ -6,7 +6,11 @@ let cardData = []
 for (let i = 0; i<cardArray.length; i++) {
     cardData.push(
         {
-            name: cardArray[i]
+            card_id: cardArray[i].id,
+            name: cardArray[i].name,
+            cmc: cardArray[i].cmc,
+            set: cardArray[i].set_name,
+            type: cardArray[i].type_line,
         }
     )
 }
