@@ -67,6 +67,39 @@ app.get('/api/data', (req, res) => {
   });
 });
 
+app.get('/api/name/:id', (req, res) => {
+  db.query(`SELECT * FROM card WHERE name='${req.params.id}'`, (err, results) => {
+    if (err) {
+      console.error('Database query error: ' + err.message);
+      res.status(500).send('Database error');
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get('/api/cmc/:id', (req, res) => {
+  db.query(`SELECT * FROM card WHERE cmc='${req.params.id}'`, (err, results) => {
+    if (err) {
+      console.error('Database query error: ' + err.message);
+      res.status(500).send('Database error');
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get('/api/type/:id', (req, res) => {
+  db.query(`SELECT * FROM card WHERE type LIKE '${req.params.id}'`, (err, results) => {
+    if (err) {
+      console.error('Database query error: ' + err.message);
+      res.status(500).send('Database error');
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
