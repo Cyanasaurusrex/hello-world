@@ -24,6 +24,30 @@ Card.init(
         type: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        img_small: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        img_normal: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        img_large: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        img_png: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        img_art_crop: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        img_border_crop: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     },
     {

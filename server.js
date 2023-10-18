@@ -106,6 +106,20 @@ app.get('/api/type/:id', (req, res) => {
   });
 });
 
+app.get('/api/img/:id', (req, res) => {
+  const searchQuery = `%${req.params.id}%`
+  db.query(`SELECT img_normal FROM card WHERE name LIKE ? LIMIT 1`, [searchQuery], (err, results) => {
+    if (err) {
+      console.error('Database query error: ' + err.message);
+      res.status(500).send('Database error');
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
