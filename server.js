@@ -56,6 +56,7 @@ app.get('/api', (req, res) => {
   request.end()
 });
 
+// return all cards
 app.get('/api/data', (req, res) => {
   db.query('SELECT * FROM card ORDER BY oracle_id  LIMIT 10000', (err, results) => {
     if (err) {
@@ -67,8 +68,10 @@ app.get('/api/data', (req, res) => {
   });
 });
 
+// return all cards with partial name match
 app.get('/api/name/:id', (req, res) => {
-  db.query(`SELECT * FROM card WHERE name='${req.params.id}'`, (err, results) => {
+  const searchQuery = `%${req.params.id}%`
+  db.query(`SELECT * FROM card WHERE name LIKE ? LIMIT 100`, [searchQuery], (err, results) => {
     if (err) {
       console.error('Database query error: ' + err.message);
       res.status(500).send('Database error');
@@ -78,6 +81,7 @@ app.get('/api/name/:id', (req, res) => {
   });
 });
 
+// returns cards with specified converted mana cost
 app.get('/api/cmc/:id', (req, res) => {
   db.query(`SELECT * FROM card WHERE cmc='${req.params.id}'`, (err, results) => {
     if (err) {
@@ -89,8 +93,10 @@ app.get('/api/cmc/:id', (req, res) => {
   });
 });
 
+// returns cards with partial matches to specified card type
 app.get('/api/type/:id', (req, res) => {
-  db.query(`SELECT * FROM card WHERE type LIKE '${req.params.id}'`, (err, results) => {
+  const searchQuery = `%${req.params.id}%`
+  db.query(`SELECT * FROM card WHERE type LIKE ? ORDER BY name LIMIT 100`, [searchQuery], (err, results) => {
     if (err) {
       console.error('Database query error: ' + err.message);
       res.status(500).send('Database error');
