@@ -1,1 +1,1 @@
-<input placeholder="Enter card name">
+<input [(ngModel)]="cardInput" (keydown.enter)="cardSearch(cardInput)" placeholder="Enter card name">

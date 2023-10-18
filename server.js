@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const https = require('https')
 const path = require('path')
 const app = express();
@@ -22,7 +23,7 @@ db.connect((err) => {
 });
 
 
-
+app.use(cors({ origin: 'http://localhost:4200' }))
 
 app.get('/api', (req, res) => {
   const apiKey = process.env.API_KEY
@@ -108,7 +109,7 @@ app.get('/api/type/:id', (req, res) => {
 
 app.get('/api/img/:id', (req, res) => {
   const searchQuery = `%${req.params.id}%`
-  db.query(`SELECT img_normal FROM card WHERE name LIKE ? LIMIT 1`, [searchQuery], (err, results) => {
+  db.query(`SELECT name,img_normal FROM card WHERE name LIKE ? LIMIT 1`, [searchQuery], (err, results) => {
     if (err) {
       console.error('Database query error: ' + err.message);
       res.status(500).send('Database error');
