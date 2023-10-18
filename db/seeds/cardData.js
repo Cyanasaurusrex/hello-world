@@ -1,5 +1,5 @@
 const Card = require('../../models/card')
-const cardArray = require('./cardArrays/cardArray.json')
+const cardArray = require('./cardArrays/allCards.json')
 
 let cardData = []
 
