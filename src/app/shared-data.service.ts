@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,14 @@ export class SharedDataService {
   setCardData(imageUrl: string, cardName: string) {
     this.imageUrlSubject.next(imageUrl)
     this.nameSubject.next(cardName)
+  }
+
+  private clearCardsSubject = new Subject<void>()
+
+  clearCards$ = this.clearCardsSubject.asObservable()
+
+  clear() {
+    this.clearCardsSubject.next()
   }
 
   constructor() { }

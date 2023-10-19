@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedDataService } from '../shared-data.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { SharedDataService } from '../shared-data.service';
   templateUrl: './card-display.component.html',
   styleUrls: ['./card-display.component.css']
 })
-export class CardDisplayComponent {
+export class CardDisplayComponent  implements OnInit{
   cards: {cardName:string, imageUrl:string}[] =[]
 
   constructor(private sharedDataService: SharedDataService) {
@@ -20,5 +20,15 @@ export class CardDisplayComponent {
       }
     })
 
+  }
+
+  ngOnInit(): void {
+    this.sharedDataService.clearCards$.subscribe(() => {
+      this.clearCards()
+    })
+  }
+
+  clearCards() {
+    this.cards = []
   }
 }

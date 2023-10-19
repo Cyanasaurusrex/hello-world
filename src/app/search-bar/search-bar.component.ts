@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { cardSearchReturn } from './cardSearchReturn.interface';
 import { SharedDataService } from '../shared-data.service';
-import { first } from 'rxjs';
+
 
 @Component({
   selector: 'app-search-bar',
@@ -12,9 +12,10 @@ import { first } from 'rxjs';
 export class SearchBarComponent {
   cardInput: string = '';
 
-  constructor(private http: HttpClient, private sharedDataService: SharedDataService) {} // inject HTTPClient
+  constructor(private http: HttpClient, private sharedDataService: SharedDataService) {} // inject HTTPClient  
 
   cardSearch(cardInput: string) {
+    this.sharedDataService.clear()
     this.http.get<cardSearchReturn[]>('http://localhost:3000/api/img/' + cardInput).subscribe((data) => {   
       data.forEach((card) => {
         if (card.img_normal && card.name) {
