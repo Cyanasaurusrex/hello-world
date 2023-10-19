@@ -7,11 +7,18 @@ import { SharedDataService } from '../shared-data.service';
   styleUrls: ['./card-display.component.css']
 })
 export class CardDisplayComponent {
-  imageUrl:string = ''
+  cards: {cardName:string, imageUrl:string}[] =[]
 
   constructor(private sharedDataService: SharedDataService) {
-    this.sharedDataService.imageUrl$.subscribe((url) => {
-      this.imageUrl = url
+      this.sharedDataService.cardName$.subscribe((cardName) => {
+      this.cards.push({ cardName, imageUrl: ''})
     })
+
+    this.sharedDataService.imageUrl$.subscribe((imageUrl) => {
+      if (this.cards.length > 0) {
+        this.cards[this.cards.length - 1].imageUrl = imageUrl
+      }
+    })
+
   }
 }

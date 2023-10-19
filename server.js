@@ -109,7 +109,7 @@ app.get('/api/type/:id', (req, res) => {
 
 app.get('/api/img/:id', (req, res) => {
   const searchQuery = `%${req.params.id}%`
-  db.query(`SELECT name,img_normal FROM card WHERE name LIKE ? ORDER BY name LIMIT 1`, [searchQuery], (err, results) => {
+  db.query(`SELECT name,img_normal FROM card WHERE name LIKE ? LIMIT 5`, [searchQuery], (err, results) => {
     if (err) {
       console.error('Database query error: ' + err.message);
       res.status(500).send('Database error');

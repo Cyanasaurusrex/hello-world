@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { cardSearchReturn } from './cardSearchReturn.interface';
 import { SharedDataService } from '../shared-data.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-search-bar',
@@ -15,17 +16,12 @@ export class SearchBarComponent {
 
   cardSearch(cardInput: string) {
     this.http.get<cardSearchReturn[]>('http://localhost:3000/api/img/' + cardInput).subscribe((data) => {   
-      if (data.length > 0) {
-        const firstResult = data[0];
-        if (firstResult.img_normal) {
-          this.sharedDataService.setImgUrl(firstResult.img_normal);
-        } else {
-          console.error('Image URL is undefined in the API response.');
+      data.forEach((card) => {
+        if (card.img_normal && card.name) {
+          this.sharedDataService.setCardData(card.img_normal, card.name)
         }
-      } else {
-        console.error('No results in the API response.');
-      }
-    });
+      })    
+    })
     this.cardInput = '';
   }
 }
