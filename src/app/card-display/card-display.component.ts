@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SharedDataService } from '../shared-data.service';
 
 @Component({
   selector: 'app-card-display',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./card-display.component.css']
 })
 export class CardDisplayComponent {
+  imageUrl:string = ''
 
+  constructor(private sharedDataService: SharedDataService) {
+    this.sharedDataService.imageUrl$.subscribe((url) => {
+      this.imageUrl = url
+    })
+  }
 }
