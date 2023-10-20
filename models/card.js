@@ -48,6 +48,14 @@ Card.init(
         img_border_crop: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        price_usd: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        price_usd_foil: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     },
     {

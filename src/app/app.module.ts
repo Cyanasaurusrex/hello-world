@@ -10,6 +10,8 @@ import { CourseComponent } from './course/course.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CardDisplayComponent } from './card-display/card-display.component';
+import { PriceCheckComponent } from './price-check/price-check.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { CardDisplayComponent } from './card-display/card-display.component';
     NavbarComponent,
     SearchBarComponent,
     CardDisplayComponent,
+    PriceCheckComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,10 +16,10 @@ export class SearchBarComponent {
 
   cardSearch(cardInput: string) {
     this.sharedDataService.clear()
-    this.http.get<cardSearchReturn[]>('http://localhost:3000/api/img/' + cardInput).subscribe((data) => {   
+    this.http.get<cardSearchReturn[]>('http://localhost:3000/api/info/' + cardInput).subscribe((data) => {   
       data.forEach((card) => {
         if (card.img_normal && card.name) {
-          this.sharedDataService.setCardData(card.img_normal, card.name)
+          this.sharedDataService.setCardData(card.img_normal, card.name, card.price_usd)
         }
       })    
     })

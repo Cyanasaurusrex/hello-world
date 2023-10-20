@@ -1,4 +1,6 @@
-<div *ngFor="let card of cards">
-    <h2>{{ card.cardName }}</h2>
+<div class="card"*ngFor="let card of cards">
+    <div>Debug: {{ card.imageUrl }}</div> <!-- Add this line for debugging -->
     <img [src]="card.imageUrl" alt="Card Image" *ngIf="card.imageUrl" />
+    <h2>{{ card.cardName }}</h2>
+    <p *ngIf="card.priceUSD !== null">Price: ${{ card.priceUSD }}</p>
 </div>

@@ -10,6 +10,8 @@ for (let i = 0; i<cardArray.length; i++) {
     let placeholderPNG = null
     let placeholderAC = null
     let placeholderBC = null
+    let placeholderPriceUSD = null
+    let placeholderUSDFoil = null
     try {
         placeholderSM = cardArray[i].image_uris.small
         placeholderNM = cardArray[i].image_uris.normal
@@ -17,11 +19,11 @@ for (let i = 0; i<cardArray.length; i++) {
         placeholderPNG = cardArray[i].image_uris.png
         placeholderAC = cardArray[i].image_uris.art_crop
         placeholderBC = cardArray[i].image_uris.border_crop
+        placeholderPriceUSD = cardArray[i].prices.usd
+        placeholderUSDFoil = cardArray[i].prices.usd_foil
     } catch {
 
-    }
-    
-    
+    }    
     
     cardData.push(
         {
@@ -35,7 +37,9 @@ for (let i = 0; i<cardArray.length; i++) {
             img_large: placeholderLG,
             img_png: placeholderPNG,
             img_art_crop: placeholderAC,
-            img_border_crop: placeholderBC
+            img_border_crop: placeholderBC,
+            price_usd: placeholderPriceUSD,
+            price_usd_foil: placeholderUSDFoil
         }
     )
 }

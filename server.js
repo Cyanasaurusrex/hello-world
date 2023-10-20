@@ -59,7 +59,7 @@ app.get('/api', (req, res) => {
 
 // return all cards
 app.get('/api/data', (req, res) => {
-  db.query('SELECT * FROM card ORDER BY oracle_id  LIMIT 10000', (err, results) => {
+  db.query('SELECT * FROM card ORDER BY oracle_id  LIMIT 100', (err, results) => {
     if (err) {
       console.error('Database query error: ' + err.message);
       res.status(500).send('Database error');
@@ -84,7 +84,7 @@ app.get('/api/name/:id', (req, res) => {
 
 // returns cards with specified converted mana cost
 app.get('/api/cmc/:id', (req, res) => {
-  db.query(`SELECT * FROM card WHERE cmc='${req.params.id}'`, (err, results) => {
+  db.query(`SELECT * FROM card WHERE cmc='${req.params.id}' limit 100`, (err, results) => {
     if (err) {
       console.error('Database query error: ' + err.message);
       res.status(500).send('Database error');
@@ -119,7 +119,18 @@ app.get('/api/img/:id', (req, res) => {
   });
 });
 
-
+// // returns relevant categories for card display 
+app.get('/api/info/:id', (req, res) => {
+  const searchQuery = `%${req.params.id}%`
+  db.query(`SELECT name, img_normal, price_usd FROM card WHERE name LIKE ? LIMIT 5`, [searchQuery], (err, results) => {
+    if (err) {
+      console.error('Database query error: ' + err.message);
+      res.status(500).send('Database error');
+    } else {
+      res.json(results);
+    }
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
